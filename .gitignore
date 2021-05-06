@@ -249,4 +249,7 @@ Thumbs.db
 *.code-workspace
 #configuration files
 *.ini
+
+#data
+data/*
 # End of https://www.toptal.com/developers/gitignore/api/python,vscode,pycharm+all
