@@ -1,8 +1,8 @@
 from src.data.crawler.TweetsCrawler import TweetsCrawler
 import src.utils as utils
-from src.constants import RAW_DATA_URL
+from src.constants import RAW_DATA_DIR
 import sys
-def gather_raw_data(count_per_class, raw_data_output_dir=RAW_DATA_URL):
+def gather_raw_data(count_per_class, raw_data_output_dir=RAW_DATA_DIR):
     crawler = TweetsCrawler()
     class_ids = crawler.classesData.get_total_class_ids()
     for class_id in class_ids:
@@ -21,5 +21,5 @@ if __name__ == "__main__":
     try:
         url = sys.argv[2]
     except:
-        url = RAW_DATA_URL
+        url = RAW_DATA_DIR
     gather_raw_data(count_per_class, url)

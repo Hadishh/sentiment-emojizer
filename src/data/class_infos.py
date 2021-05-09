@@ -1,7 +1,6 @@
 import csv
 import emoji
 from src.constants import CLASSES_DATA_URL
-Instance = ClassesInformation(CLASSES_DATA_URL)
 class ClassesInformation:
     def __init__(self, csv_url):
         data = []
@@ -23,8 +22,10 @@ class ClassesInformation:
         for i in range(len(self.__data)):
             ids.append(i + 1)
         return ids
-    def get_emoji_class(emoji):
+    def get_emoji_class(self, emoji):
         for item in self.__data:
             if(emoji in item['emojis']):
-                return item['id']
+                return int(item['id'])
         return None
+
+Instance = ClassesInformation(CLASSES_DATA_URL)
