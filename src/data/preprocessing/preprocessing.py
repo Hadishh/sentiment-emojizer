@@ -75,6 +75,14 @@ def remove_non_ascii(tokenized_tweet):
         tweet.append(token)
     return tweet
 
+#m
+def remove_rt_tokens(tokenized_tweet):
+    tweet = []
+    for token in tokenized_tweet:
+        if token != "rt":
+            tweet.append(token)
+    return tweet
+
 def count_unique_emojis(text):
     emojis = set()
     for item in text:

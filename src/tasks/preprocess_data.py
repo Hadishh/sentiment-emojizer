@@ -5,7 +5,7 @@ from nltk.tokenize import TweetTokenizer
 import os
 from src.data.class_infos import Instance as classes_info
 
-def preprocess_data(tsv_url, flags="abcdefhijkl"):
+def preprocess_data(tsv_url, flags):
     # utils.read_tsv()
     tweets = utils.read_tsv(tsv_url)
     print(f"start processing {tsv} with count {len(tweets)}")
@@ -38,6 +38,8 @@ def preprocess_data(tsv_url, flags="abcdefhijkl"):
         tweets = [remove_emojis(t) for t in tweets]
     if('l' in flags):
         tweets = [remove_non_ascii(t) for t in tweets]
+    if('m' in flags):
+        tweets = [remove_rt_tokens(t) for t in tweets]
     print(f"end processing {tsv} with count {len(tweets)}")
     return tweets, labels
 
@@ -47,7 +49,7 @@ import json
 parser = argparse.ArgumentParser()
 parser.add_argument("--ids", default="1,2,3,4,5,6,7,8")
 parser.add_argument("--out", default=PREPROCCESSED_DATA_DIR)
-parser.add_argument("--flags", default="abcdefhijkl")
+parser.add_argument("--flags", default="abcdefhijklm")
 parser.add_argument("--input", default=RAW_DATA_DIR)
 args = parser.parse_args()
 
@@ -64,7 +66,7 @@ if __name__ == "__main__":
     total_data = {}
     total_data_url = os.path.join(base_preproc_data, f"ordered_data.json")
     for tsv, id in tsvs:
-        tweets, labels = preprocess_data(tsv, flags="abcdefhijkl")
+        tweets, labels = preprocess_data(tsv, flags=args.flags)
         data_url = os.path.join(base_preproc_data, f"{classes_info.get_class_name(id)}_preprocessed.json")
         data = {}
         class_name = classes_info.get_class_name(id)
