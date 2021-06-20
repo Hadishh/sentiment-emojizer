@@ -1,5 +1,5 @@
 import emoji
-
+import csv
 def read_lines(file):
     with open(file, 'r') as f:
         lines = f.readlines()
@@ -16,3 +16,10 @@ def read_tsv(file):
         data = f.read()
         data = data.split("\t")
         return data
+
+def save_csv(csv_columns, csv_data, url):
+    with open(url, 'w') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
+        writer.writeheader()
+        for data in csv_data:
+            writer.writerow(data)

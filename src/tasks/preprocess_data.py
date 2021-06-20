@@ -1,4 +1,4 @@
-from src.constants import PREPROCCESSED_DATA_DIR, RAW_DATA_DIR
+from src.constants import PREPROCCESSED_DATA_DIR, RAW_DATA_DIR, RAW_DATA_SUFFIX, PREPROCESSED_DATA_SUFFIX, TOTAL_ORDERED_DATA_FILE
 import src.utils as utils
 from src.data.preprocessing.preprocessing import *
 from nltk.tokenize import TweetTokenizer
@@ -40,6 +40,8 @@ def preprocess_data(tsv_url, flags):
         tweets = [remove_non_ascii(t) for t in tweets]
     if('m' in flags):
         tweets = [remove_rt_tokens(t) for t in tweets]
+    tweets = [t for t in tweets if len(t) > 0]
+    # tweets = [t + ['<EOT>'] for t in tweets]
     print(f"end processing {tsv} with count {len(tweets)}")
     return tweets, labels
 
@@ -60,14 +62,14 @@ if __name__ == "__main__":
     base_input_dir = args.input
     labels_dir = os.path.join(base_preproc_data, "labels")
     classes = [int(item) for item in classes.split(',')]
-    tsvs = [(os.path.join(base_input_dir, f"{classes_info.get_class_name(id)}_raw_text.tsv"), id) for id in classes]
+    tsvs = [(os.path.join(base_input_dir, f"{classes_info.get_class_name(id)}{RAW_DATA_SUFFIX}_text.tsv"), id) for id in classes]
     if not(os.path.exists(labels_dir)):
         os.mkdir(labels_dir)
     total_data = {}
-    total_data_url = os.path.join(base_preproc_data, f"ordered_data.json")
+    total_data_url = os.path.join(base_preproc_data, f"{TOTAL_ORDERED_DATA_FILE}.json")
     for tsv, id in tsvs:
         tweets, labels = preprocess_data(tsv, flags=args.flags)
-        data_url = os.path.join(base_preproc_data, f"{classes_info.get_class_name(id)}_preprocessed.json")
+        data_url = os.path.join(base_preproc_data, f"{classes_info.get_class_name(id)}{PREPROCESSED_DATA_SUFFIX}.json")
         data = {}
         class_name = classes_info.get_class_name(id)
         for tweet, label in zip(tweets, labels):
