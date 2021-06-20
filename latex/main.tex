@@ -1,0 +1,67 @@
+\documentclass[a4paper]{article} 
+\input{head}
+\begin{document}
+
+%-------------------------------
+%	TITLE SECTION
+%-------------------------------
+
+\fancyhead[C]{}
+\hrule \medskip % Upper rule
+\begin{minipage}{0.295\textwidth} 
+\raggedright
+\footnotesize
+Hadi Sheikhi \hfill\\   
+97521369\hfill\\
+ha\_sheikhi@comp.iust.ac.ir
+\end{minipage}
+\begin{minipage}{0.4\textwidth} 
+\centering 
+\large 
+Final Project Report\\ 
+\normalsize 
+Natural Language Processing\\ 
+\end{minipage}
+\begin{minipage}{0.295\textwidth} 
+\raggedleft
+\today\hfill\\
+\end{minipage}
+\medskip\hrule 
+\bigskip
+
+%-------------------------------
+%	CONTENTS
+%-------------------------------
+
+
+%\blindtext
+[TODO] Some explanation about the tasks and the project.
+\section{Word2Vec algorithm}
+By using the word2vec implementations of the CS224n course at Stanford University, after training the model for each label we get losses around 5. Now let's consider the two most common tokens between each label and see the similarity between the resulting vectors.\\
+\begin{align*}
+	\csvautotabular{../reports/word2vec/similarity.csv}
+\end{align*} 
+As the table shows many words have different word vectors in different classes! But if we take a look at for example, "myself" or "minhyuk", the vectors are similar, and this means that the word "myself" has the same meaning in two classes Happy and Love And the word "minhyuk" (South Korean singer) has the same meaning in two similar classes Excited and Energetic. \\
+Considering "safe" between Happy and Curious, if we are sure about the accuracy of data and labeling, the most probable reason for this difference is the different contexts for each class. 
+\begin{align*}
+y &=  \sum\limits_{i,k} m_i \cdot f^k \\
+x &=  
+\underset{11}{\underbrace{3 + 8}} + 5 + 7
+\end{align*}
+
+\subsection{Second Subtask}
+Yo!
+\blindtext
+
+\bigskip
+
+%------------------------------------------------
+
+\section{Second Exercise}
+\blindtext
+\subsection{First Subtask}
+\bigskip
+
+%------------------------------------------------
+
+\end{document}
