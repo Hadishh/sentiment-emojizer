@@ -47,7 +47,7 @@ Considering "safe" between Happy and Curious, if we are sure about the accuracy 
 \bigskip
 
 %------------------------------------------------
-
+\pagebreak
 \section{Tokenization}
 Training the SentencePiece model with two types 'bpe' and 'unigram' on different vocabulary sizes to identify the best parameters for the tokenizer model. Each label trained separately.
 \subsection{Happy}
@@ -105,7 +105,7 @@ As the results shows, both models have the smallest percentage of UNK tokens for
 As the results shows, both models have the smallest percentage of UNK tokens for 50 vocabulary size.
 
 \subsection{Conclusion}
-After training multiple models on different labels, I find out that the unigram model with vocabulary size 50 is a good coordination for tokenizer model. So I chose these settings to tokenize the input.
+After training multiple models on different labels, I find out that the unigram model with vocabulary size 50 is a good coordination for tokenizer model. So I chose 50 as vocabulary size and the unigram model to tokenize the input.
 \bigskip
 
 %------------------------------------------------
