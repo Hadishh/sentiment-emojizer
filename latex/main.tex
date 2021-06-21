@@ -43,23 +43,69 @@ By using the word2vec implementations of the CS224n course at Stanford Universit
 \end{align*} 
 As the table shows many words have different word vectors in different classes! But if we take a look at for example, "myself" or "minhyuk", the vectors are similar, and this means that the word "myself" has the same meaning in two classes Happy and Love And the word "minhyuk" (South Korean singer) has the same meaning in two similar classes Excited and Energetic. \\
 Considering "safe" between Happy and Curious, if we are sure about the accuracy of data and labeling, the most probable reason for this difference is the different contexts for each class. 
-\begin{align*}
-y &=  \sum\limits_{i,k} m_i \cdot f^k \\
-x &=  
-\underset{11}{\underbrace{3 + 8}} + 5 + 7
-\end{align*}
-
-\subsection{Second Subtask}
-Yo!
-\blindtext
 
 \bigskip
 
 %------------------------------------------------
 
-\section{Second Exercise}
-\blindtext
-\subsection{First Subtask}
+\section{Tokenization}
+Training the SentencePiece model with two types 'bpe' and 'unigram' on different vocabulary sizes to identify the best parameters for the tokenizer model. Each label trained separately.
+\subsection{Happy}
+\subsubsection{Unigram model}
+\begin{align*}
+	\csvautotabular{../reports/tokenization/Happy_unigram.csv}
+\end{align*} 
+\subsubsection{BPE model}
+\begin{align*}
+	\csvautotabular{../reports/tokenization/Happy_bpe.csv}
+\end{align*} 
+As the results shows, both models have the smallest percentage of UNK tokens for 50 vocabulary size.
+\subsection{Sad}
+\subsubsection{Unigram model}
+\begin{align*}
+	\csvautotabular{../reports/tokenization/Sad_unigram.csv}
+\end{align*} 
+\subsubsection{BPE model}
+\begin{align*}
+	\csvautotabular{../reports/tokenization/Sad_bpe.csv}
+\end{align*} 
+As the results shows, both models have the smallest percentage of UNK tokens for 50 vocabulary size.
+
+\subsection{Angry}
+\subsubsection{Unigram model}
+\begin{align*}
+	\csvautotabular{../reports/tokenization/Angry_unigram.csv}
+\end{align*} 
+\subsubsection{BPE model}
+\begin{align*}
+	\csvautotabular{../reports/tokenization/Angry_bpe.csv}
+\end{align*} 
+As the results shows, both models have the smallest percentage of UNK tokens for 50 vocabulary size.
+
+\subsection{Fearful}
+\subsubsection{Unigram model}
+\begin{align*}
+	\csvautotabular{../reports/tokenization/Fearful_unigram.csv}
+\end{align*} 
+\subsubsection{BPE model}
+\begin{align*}
+	\csvautotabular{../reports/tokenization/Fearful_bpe.csv}
+\end{align*} 
+As the results shows, both models have the smallest percentage of UNK tokens for 50 vocabulary size.
+
+\subsection{Love}
+\subsubsection{Unigram model}
+\begin{align*}
+	\csvautotabular{../reports/tokenization/Love_unigram.csv}
+\end{align*} 
+\subsubsection{BPE model}
+\begin{align*}
+	\csvautotabular{../reports/tokenization/Love_bpe.csv}
+\end{align*} 
+As the results shows, both models have the smallest percentage of UNK tokens for 50 vocabulary size.
+
+\subsection{Conclusion}
+After training multiple models on different labels, I find out that the unigram model with vocabulary size 50 is a good coordination for tokenizer model. So I chose these settings to tokenize the input.
 \bigskip
 
 %------------------------------------------------
