@@ -115,4 +115,23 @@ Trained the parser model, to identify the dependency parsing of each sentece. He
 To explain the result, consider (5, 4), this means (head: "answers", tail: "best") transition.\\
 "yes i have reported several tweets and the profile itself" with dependency parse [(4, 3), (4, 2), (4, 1), (6, 5), (9, 8), (9, 7), (6, 9), (4, 6), (4, 10), (0, 4)]. (Will be better in next versions!)
 %------------------------------------------------
+\section{Language Model}
+Using language model implementation \href{https://github.com/pytorch/examples}{here}, a LSTM model with 200 hidden state size and 2 layers, Trained and generated text for each label.
+\subsection{Happy}
+Model trained on this label with the ppl 4.64 by running 10 epochs. Sentences generated for the happy class are:\\
+\input{../reports/language_model/Happy.txt}
+The results seems reasonable for Happy class. Some wrong phrases occurred, for e.x "your my picture".\\
+\subsection{Angry}
+Model trained on this label with the ppl 1.91 by running 10 epochs. Sentences generated for the angry class are:\\
+\input{../reports/language_model/Angry.txt}
+Some phrases shows angry feelings well, like "i hate". But still have many grammatical and contextual errors.\\
+\subsection{Sad}
+Model trained on this label with the ppl 4.16 by running 10 epochs. Sentences generated for the sad class are:\\
+\input{../reports/language_model/Sad.txt}
+Some phrases shows sad feelings well, like "i wand your headache", but still have many grammatical and contextual errors.\\
+\subsection{Love}
+Model trained on this label with the ppl 39.04 by running 10 epochs. Sentences generated for the love class are:\\
+\input{../reports/language_model/Love.txt}
+Some phrases shows love feelings well by containing special words like "heart", "happiness" and "beautiful", but still have many grammatical and contextual errors.\\
+%------------------------------------------------
 \end{document}
