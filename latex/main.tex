@@ -109,5 +109,10 @@ After training multiple models on different labels, I find out that the unigram 
 \bigskip
 
 %------------------------------------------------
-
+\section{Parsing}
+Trained the parser model, to identify the dependency parsing of each sentece. Here are two examples of the sentences with UAS score 86.667:\\
+"you cropped the best answers" with dependency parse [(2, 1), (5, 4), (5, 3), (2, 5), (0, 2)].\\ 
+To explain the result, consider (5, 4), this means (head: "answers", tail: "best") transition.\\
+"yes i have reported several tweets and the profile itself" with dependency parse [(4, 3), (4, 2), (4, 1), (6, 5), (9, 8), (9, 7), (6, 9), (4, 6), (4, 10), (0, 4)]. (Will be better in next versions!)
+%------------------------------------------------
 \end{document}
