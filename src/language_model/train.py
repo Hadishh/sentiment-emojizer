@@ -5,6 +5,8 @@ import os
 from src.language_model.dataset import dataset
 from src.language_model.model import RNNModel
 from src.data.class_infos import Instance as classes_info
+
+from src.logger.logger import log
 BATCH_SIZE = 20
 USE_CUDA = False
 EMBEDDING_SIZE = 200
@@ -104,6 +106,8 @@ if __name__ == "__main__":
         criterion = torch.nn.NLLLoss()
         lr = LR
         best_val_loss = None
+        print(f"Started training on label {class_name} for {EPOCHS} epochs.")
+        log(f"Started training on label {class_name} for {EPOCHS} epochs.", "language_model")
         for epoch in range(1, EPOCHS + 1):
             epoch_start_time = time.time()
             train(model, corpus, train_data, criterion, lr)
@@ -112,7 +116,9 @@ if __name__ == "__main__":
             print('| end of epoch {:3d} | time: {:5.2f}s | loss {:5.2f} | '
                     'ppl {:8.2f}'.format(epoch, (time.time() - epoch_start_time),
                                             val_loss, math.exp(val_loss)))
-        
+            log(' end of epoch {:3d} | time: {:5.2f}s | loss {:5.2f} | '
+                    'ppl {:8.2f}'.format(epoch, (time.time() - epoch_start_time),
+                                            val_loss, math.exp(val_loss)), "language_model")
             if not best_val_loss or val_loss < best_val_loss:
                 url = output_dir + class_name + ".model"
                 with open(url, "wb") as f:
