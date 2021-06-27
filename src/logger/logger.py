@@ -7,7 +7,7 @@ def log(message, task):
         url = WORD2VEC_LOG_FILE
     if(task == "language_model"):
         url = LANGUAGE_MODEL_LOG_FILE
-    if(task == "language_model"):
+    if(task == "fine_tuning"):
         url = FINETUNE_LOG_FILES
     if url is None:
         return
