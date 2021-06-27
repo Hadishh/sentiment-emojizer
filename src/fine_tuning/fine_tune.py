@@ -14,7 +14,7 @@ def fine_tune(class_name, json_file, tokenizer, epochs, batch_size, save_url=Non
     model = BertLM(class_name)
     #using CPU
     trainer = pl.Trainer(max_epochs=epochs, checkpoint_callback=False, logger=False)
-    log(f"Start fine tuning BERT maskel LM on class {class_name}", "fine_tuning")
+    log(f"Start fine tuning BERT masked LM on class {class_name}", "fine_tuning")
     trainer.fit(model, train_loader)
     if save_url is not None:
         log(f"Finished training. Saving model in {save_url}", "fine_tuning")
