@@ -26,10 +26,10 @@ class BertLM(pl.LightningModule):
         super().training_epoch_end(outputs)
         mean_loss = 0
         n_batch  = len(outputs)
-        for key in outputs:
-            self.tensor.weight.data.cpu().numpy()
-            mean_loss += outputs[key].weight.data.cpu().numpy() / n_batch
+        for i in range(n_batch):
+            mean_loss += outputs[i]['loss'].cpu().numpy() / n_batch
         log(f"End of epoch {self.epoch_number} with mean loss '{mean_loss}' on label {self.class_name}.", "fine_tuning")
+        self.epoch_number += 1
     def configure_optimizers(self):
         return AdamW(self.parameters(), lr=1e-5)
 

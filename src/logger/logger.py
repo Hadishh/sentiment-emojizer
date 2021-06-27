@@ -12,7 +12,7 @@ def log(message, task):
     if url is None:
         return
     if (not os.path.exists(url)):
-        os.makedirs(url, exist_ok=True)
+        os.makedirs('logs', exist_ok=True)
         with open(url, 'w') as f:
             f.write(f"[{datetime.datetime.now()}] {message}\n")
     else:
