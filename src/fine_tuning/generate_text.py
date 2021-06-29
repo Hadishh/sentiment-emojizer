@@ -5,6 +5,7 @@ import time
 import math
 from src.fine_tuning.bert_lm import BertPred
 from transformers import BertTokenizer
+from src.logger.logger import log
 
 def tokenize_batch(batch, tokenizer):
     return [tokenizer.convert_tokens_to_ids(sent) for sent in batch]
@@ -25,7 +26,7 @@ def generate_step(out, gen_idx, temperature=None, top_k=0, sample=False, return_
         - top_k (int): if >0, only sample from the top k most probable words
         - sample (Bool): if True, sample from full distribution. Overridden by top_k 
     """
-    logits = out[:, gen_idx]
+    logits = out.logits[:, gen_idx]
     if temperature is not None:
         logits = logits / temperature
     if top_k > 0:
@@ -47,7 +48,7 @@ def parallel_sequential_generation(seed_text, tokenizer, model, batch_size=1, ma
         - burnin: during burn-in period, sample from full distribution; afterwards take argmax
     """
     seed_len = len(seed_text)
-    batch = get_init_text(seed_text, max_len, batch_size)
+    batch = get_init_text(seed_text, max_len, tokenizer, batch_size=batch_size)
     mask_id = tokenizer.convert_tokens_to_ids([MASK])[0]
     for ii in range(max_iter):
         kk = np.random.randint(0, max_len)
@@ -57,17 +58,15 @@ def parallel_sequential_generation(seed_text, tokenizer, model, batch_size=1, ma
         out = model(inp)
         topk = top_k if (ii >= burnin) else 0
         idxs = generate_step(out, gen_idx=seed_len+kk, top_k=topk, temperature=temperature, sample=(ii < burnin))
+        #if idxs is a single number
+        if isinstance(idxs, int):
+            idxs = [idxs]
         for jj in range(batch_size):
             batch[jj][seed_len+kk] = idxs[jj]
             
-        if verbose and np.mod(ii+1, print_every) == 0:
-            for_print = tokenizer.convert_ids_to_tokens(batch[0])
-            for_print = for_print[:seed_len+kk+1] + ['(*)'] + for_print[seed_len+kk+1:]
-            print("iter", ii+1, " ".join(for_print))
-            
     return untokenize_batch(batch, tokenizer)
 
-def generate(n_samples, class_name, model, seed_text="[CLS]", batch_size=10, max_len=25, 
+def generate(n_samples, class_name, model, seed_text="[CLS]", batch_size=1, max_len=25, 
              sample=True, top_k=100, temperature=1.0, burnin=200, max_iter=500,
              cuda=False, print_every=1):
     # main generation function to call
@@ -82,6 +81,7 @@ def generate(n_samples, class_name, model, seed_text="[CLS]", batch_size=10, max
         
         if (batch_n + 1) % print_every == 0:
             print("Finished batch %d in %.3fs" % (batch_n + 1, time.time() - start_time))
+            log("Finished batch %d in %.3fs" % (batch_n + 1, time.time() - start_time), "fine_tuning")
             start_time = time.time()
         
         sentences += batch
