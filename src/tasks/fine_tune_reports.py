@@ -9,6 +9,17 @@ import torch
 parser = argparse.ArgumentParser()
 parser.add_argument("--ids", default="1,2,3,4,5,6,7,8")
 args = parser.parse_args()
+def standardize_sentence(sent):
+    sentence = []
+    current_word = sent[0]
+    for i in range(1, len(sent)):
+        token = sent[i]
+        if(token[0:2] == '##'):
+            current_word += token[2:]
+        else:
+            sentence.append(current_word)
+            current_word = token
+    sentence.append(current_word)
 
 if __name__ == "__main__":
     classes = args.ids
@@ -29,6 +40,7 @@ if __name__ == "__main__":
         out_url = reports_dir + f"{class_name}.txt"
         with open(out_url, 'w') as outf:
             for sent in sentences:
+                sent = standardize_sentence(sent)
                 outf.write(str(sent)[1:-1].replace('[', '<').replace(']', '>'))
                 outf.write("\\\\")
                 outf.write("\n")
