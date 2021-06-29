@@ -24,3 +24,13 @@ TOKENIZATION_REPORTS_URL = os.path.join(BASE_REPORTS_URL, BASE_TOKENIZATION_URL)
 
 
 LANGUAGE_MODEL_LOG_FILE = "logs/language_model.log"
+
+BERT_VERSION = 'bert-base-uncased'
+BERT_RAW_MODEL_CACHE_DIR = 'models/bert/raw_model/model'
+BERT_TOKENIZER_CACHE_DIR = 'models/bert/raw_model/tokenizer'
+BERT_MODELS_DIR = 'models/bert'
+BERT_SUFFIX = '_bert_lm'
+FINETUNE_LOG_FILES = "logs/fine_tuning.log"
+MASK = '[MASK]'
+SEP = '[SEP]'
+CLS = '[CLS]'

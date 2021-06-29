@@ -1,0 +1,1 @@
+python -m src.tasks.fine_tune_bert

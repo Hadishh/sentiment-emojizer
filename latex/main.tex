@@ -138,6 +138,31 @@ Model trained on this label with the ppl 1.59 by running 10 epochs. Sentences ge
 \input{../reports/language_model/Curious.txt}
 Most of the sentences are at questioning form, and the label is about being curious!\\
 \subsection{Conclusion}
-After investigating generated sentences, many irrelevant and incorrect phrases found. To solve this problem we need more data ro using a pretrained network and fine-tune it on our labels. If we consider the amount of data, results seems reasonable.\pagebreak
+After investigating generated sentences, many irrelevant and incorrect phrases found. To solve this problem we need more data ro using a pretrained network and fine-tune it on our labels. After all, if we consider the amount of data, results seems reasonable.\pagebreak
 %------------------------------------------------
+\section{Fine Tuning}
+As we saw, language models are not perform well and it's better to use pretrained models like BERT. BERT can be used for text generation by setting all tokens as MASK at the beginning and pass the sentence for some fixed iterations and predict the masked tokens at each time stamp.\cite{wang2019bert}\\
+Pretrained models are available \href{https://archive.org/download/NLP_BERT_MODELS}{here}.
+\subsection{Happy}
+Sentences generated for happy class:\\
+\input{../reports/bert_model/Happy.txt}\\
+Reached better context and phrases and seems funny and related to happy class! But still have some errors like "before last" phrase!
+\subsection{Angry}
+Sentences generated for angry class:\\
+\input{../reports/bert_model/Angry.txt}\\
+Again better phrases, but still not too much related to angry class. Maybe we should take a look at our labeling system to get better results for angry class! But still have words like "grrrrr" which nicely shows the anger!
+
+\subsection{Sad}
+Sentences generated for sad class:\\
+\input{../reports/bert_model/Sad.txt}\\
+Results are reasonable for sad class. The 9th sentence, maybe someone is sad of leaving smoke and alcohol!!! 
+
+\subsection{Love}
+Sentences generated for love class:\\
+\input{../reports/bert_model/Love.txt}\\
+I think the best results can be shown in this label's sentences!
+ 
+\pagebreak
+\bibliography{ecl}
+\bibliographystyle{apa6}
 \end{document}
