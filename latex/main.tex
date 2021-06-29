@@ -1,0 +1,168 @@
+\documentclass[a4paper]{article} 
+\input{head}
+\begin{document}
+
+%-------------------------------
+%	TITLE SECTION
+%-------------------------------
+
+\fancyhead[C]{}
+\hrule \medskip % Upper rule
+\begin{minipage}{0.295\textwidth} 
+\raggedright
+\footnotesize
+Hadi Sheikhi \hfill\\   
+97521369\hfill\\
+ha\_sheikhi@comp.iust.ac.ir
+\end{minipage}
+\begin{minipage}{0.4\textwidth} 
+\centering 
+\large 
+Final Project Report\\ 
+\normalsize 
+Natural Language Processing\\ 
+\end{minipage}
+\begin{minipage}{0.295\textwidth} 
+\raggedleft
+\today\hfill\\
+\end{minipage}
+\medskip\hrule 
+\bigskip
+
+%-------------------------------
+%	CONTENTS
+%-------------------------------
+
+
+%\blindtext
+[TODO] Some explanation about the tasks and the project.
+\section{Word2Vec algorithm}
+By using the word2vec implementations of the CS224n course at Stanford University, after training the model for each label we get losses around 5. Now let's consider the two most common tokens between each label and see the similarity between the resulting vectors.\\
+\begin{align*}
+	\csvautotabular{../reports/word2vec/similarity.csv}
+\end{align*} 
+As the table shows many words have different word vectors in different classes! But if we take a look at for example, "myself" or "minhyuk", the vectors are similar, and this means that the word "myself" has the same meaning in two classes Happy and Love And the word "minhyuk" (South Korean singer) has the same meaning in two similar classes Excited and Energetic. \\
+Considering "safe" between Happy and Curious, if we are sure about the accuracy of data and labeling, the most probable reason for this difference is the different contexts for each class. 
+
+\bigskip
+
+%------------------------------------------------
+\pagebreak
+\section{Tokenization}
+Training the SentencePiece model with two types 'bpe' and 'unigram' on different vocabulary sizes to identify the best parameters for the tokenizer model. Each label trained separately.
+\subsection{Happy}
+\subsubsection{Unigram model}
+\begin{align*}
+	\csvautotabular{../reports/tokenization/Happy_unigram.csv}
+\end{align*} 
+\subsubsection{BPE model}
+\begin{align*}
+	\csvautotabular{../reports/tokenization/Happy_bpe.csv}
+\end{align*} 
+As the results shows, both models have the smallest percentage of UNK tokens for 50 vocabulary size.
+\subsection{Sad}
+\subsubsection{Unigram model}
+\begin{align*}
+	\csvautotabular{../reports/tokenization/Sad_unigram.csv}
+\end{align*} 
+\subsubsection{BPE model}
+\begin{align*}
+	\csvautotabular{../reports/tokenization/Sad_bpe.csv}
+\end{align*} 
+As the results shows, both models have the smallest percentage of UNK tokens for 50 vocabulary size.
+
+\subsection{Angry}
+\subsubsection{Unigram model}
+\begin{align*}
+	\csvautotabular{../reports/tokenization/Angry_unigram.csv}
+\end{align*} 
+\subsubsection{BPE model}
+\begin{align*}
+	\csvautotabular{../reports/tokenization/Angry_bpe.csv}
+\end{align*} 
+As the results shows, both models have the smallest percentage of UNK tokens for 50 vocabulary size.
+
+\subsection{Fearful}
+\subsubsection{Unigram model}
+\begin{align*}
+	\csvautotabular{../reports/tokenization/Fearful_unigram.csv}
+\end{align*} 
+\subsubsection{BPE model}
+\begin{align*}
+	\csvautotabular{../reports/tokenization/Fearful_bpe.csv}
+\end{align*} 
+As the results shows, both models have the smallest percentage of UNK tokens for 50 vocabulary size.
+
+\subsection{Love}
+\subsubsection{Unigram model}
+\begin{align*}
+	\csvautotabular{../reports/tokenization/Love_unigram.csv}
+\end{align*} 
+\subsubsection{BPE model}
+\begin{align*}
+	\csvautotabular{../reports/tokenization/Love_bpe.csv}
+\end{align*} 
+As the results shows, both models have the smallest percentage of UNK tokens for 50 vocabulary size.
+
+\subsection{Conclusion}
+After training multiple models on different labels, I find out that the unigram model with vocabulary size 50 is a good coordination for tokenizer model. So I chose 50 as vocabulary size and the unigram model to tokenize the input.
+\bigskip
+
+%------------------------------------------------
+\section{Parsing}
+Trained the parser model, to identify the dependency parsing of each sentece. Here are two examples of the sentences with UAS score 100 (sentences are fairly easy to parse):\\
+"you cropped the best answers" with dependency parse [(2, 1), (5, 4), (5, 3), (2, 5), (0, 2)].\\ 
+To explain the result, consider (5, 4), this means (head: "answers", tail: "best") transition.\\
+"yes i have reported several tweets and the profile itself" with dependency parse [(4, 3), (4, 2), (4, 1), (6, 5), (9, 8), (9, 7), (6, 9), (4, 6), (4, 10), (0, 4)]. (Will be better in next versions!)
+%------------------------------------------------
+\section{Language Model}
+Using language model implementation \href{https://github.com/pytorch/examples}{here}, a LSTM model with 200 hidden state size and 2 layers, Trained and generated text for each label.
+\subsection{Happy}
+Model trained on this label with the ppl 4.58 by running 10 epochs. Sentences generated for the happy class are:\\
+\input{../reports/language_model/Happy.txt}
+The results seems reasonable for Happy class. Some wrong phrases occurred, for e.x "bye into for sure!".\\
+\subsection{Angry}
+Model trained on this label with the ppl 1.97 by running 10 epochs. Sentences generated for the angry class are:\\
+\input{../reports/language_model/Angry.txt}
+Some phrases shows angry feelings well, like "disgusting companies". But still have many grammatical and contextual errors.\\
+\subsection{Sad}
+Model trained on this label with the ppl 4.32 by running 10 epochs. Sentences generated for the sad class are:\\
+\input{../reports/language_model/Sad.txt}
+Some phrases shows sad feelings well, like "I'm so sorry", but still have many grammatical and contextual errors.\pagebreak
+\subsection{Love}
+Model trained on this label with the ppl 35.07 by running 10 epochs. Sentences generated for the love class are:\\
+\input{../reports/language_model/Love.txt}
+Some phrases shows love feelings well by containing special words like "thank you", "happy" and "beautiful", but still have many grammatical and contextual errors and irrelevant phrases, I think the problem is high perplexity and we need more data for this LM.\\
+\subsection{Curious}
+Model trained on this label with the ppl 1.59 by running 10 epochs. Sentences generated for the curious class are:\\
+\input{../reports/language_model/Curious.txt}
+Most of the sentences are at questioning form, and the label is about being curious!\\
+\subsection{Conclusion}
+After investigating generated sentences, many irrelevant and incorrect phrases found. To solve this problem we need more data ro using a pretrained network and fine-tune it on our labels. After all, if we consider the amount of data, results seems reasonable.\pagebreak
+%------------------------------------------------
+\section{Fine Tuning}
+As we saw, language models are not perform well and it's better to use pretrained models like BERT. BERT can be used for text generation by setting all tokens as MASK at the beginning and pass the sentence for some fixed iterations and predict the masked tokens at each time stamp.\cite{wang2019bert}\\
+Pretrained models are available \href{https://archive.org/download/NLP_BERT_MODELS}{here}.
+\subsection{Happy}
+Sentences generated for happy class:\\
+\input{../reports/bert_model/Happy.txt}\\
+Reached better context and phrases and seems funny and related to happy class! But still have some errors like "before last" phrase!
+\subsection{Angry}
+Sentences generated for angry class:\\
+\input{../reports/bert_model/Angry.txt}\\
+Again better phrases, but still not too much related to angry class. Maybe we should take a look at our labeling system to get better results for angry class! But still have words like "grrrrr" which nicely shows the anger!
+
+\subsection{Sad}
+Sentences generated for sad class:\\
+\input{../reports/bert_model/Sad.txt}\\
+Results are reasonable for sad class. The 9th sentence, maybe someone is sad of leaving smoke and alcohol!!! 
+
+\subsection{Love}
+Sentences generated for love class:\\
+\input{../reports/bert_model/Love.txt}\\
+I think the best results can be shown in this label's sentences!
+ 
+\pagebreak
+\bibliography{ecl}
+\bibliographystyle{apa6}
+\end{document}

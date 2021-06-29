@@ -1,0 +1,31 @@
+\BOOKMARK [1][-]{section.1}{Word2Vec algorithm}{}% 1
+\BOOKMARK [1][-]{section.2}{Tokenization}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Happy}{section.2}% 3
+\BOOKMARK [3][-]{subsubsection.2.1.1}{Unigram model}{subsection.2.1}% 4
+\BOOKMARK [3][-]{subsubsection.2.1.2}{BPE model}{subsection.2.1}% 5
+\BOOKMARK [2][-]{subsection.2.2}{Sad}{section.2}% 6
+\BOOKMARK [3][-]{subsubsection.2.2.1}{Unigram model}{subsection.2.2}% 7
+\BOOKMARK [3][-]{subsubsection.2.2.2}{BPE model}{subsection.2.2}% 8
+\BOOKMARK [2][-]{subsection.2.3}{Angry}{section.2}% 9
+\BOOKMARK [3][-]{subsubsection.2.3.1}{Unigram model}{subsection.2.3}% 10
+\BOOKMARK [3][-]{subsubsection.2.3.2}{BPE model}{subsection.2.3}% 11
+\BOOKMARK [2][-]{subsection.2.4}{Fearful}{section.2}% 12
+\BOOKMARK [3][-]{subsubsection.2.4.1}{Unigram model}{subsection.2.4}% 13
+\BOOKMARK [3][-]{subsubsection.2.4.2}{BPE model}{subsection.2.4}% 14
+\BOOKMARK [2][-]{subsection.2.5}{Love}{section.2}% 15
+\BOOKMARK [3][-]{subsubsection.2.5.1}{Unigram model}{subsection.2.5}% 16
+\BOOKMARK [3][-]{subsubsection.2.5.2}{BPE model}{subsection.2.5}% 17
+\BOOKMARK [2][-]{subsection.2.6}{Conclusion}{section.2}% 18
+\BOOKMARK [1][-]{section.3}{Parsing}{}% 19
+\BOOKMARK [1][-]{section.4}{Language Model}{}% 20
+\BOOKMARK [2][-]{subsection.4.1}{Happy}{section.4}% 21
+\BOOKMARK [2][-]{subsection.4.2}{Angry}{section.4}% 22
+\BOOKMARK [2][-]{subsection.4.3}{Sad}{section.4}% 23
+\BOOKMARK [2][-]{subsection.4.4}{Love}{section.4}% 24
+\BOOKMARK [2][-]{subsection.4.5}{Curious}{section.4}% 25
+\BOOKMARK [2][-]{subsection.4.6}{Conclusion}{section.4}% 26
+\BOOKMARK [1][-]{section.5}{Fine Tuning}{}% 27
+\BOOKMARK [2][-]{subsection.5.1}{Happy}{section.5}% 28
+\BOOKMARK [2][-]{subsection.5.2}{Angry}{section.5}% 29
+\BOOKMARK [2][-]{subsection.5.3}{Sad}{section.5}% 30
+\BOOKMARK [2][-]{subsection.5.4}{Love}{section.5}% 31

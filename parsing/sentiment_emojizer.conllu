@@ -1,0 +1,18 @@
+# text = you cropped the best answers
+1	you	you	PRON	_	_	2	nsubj	_	_
+2	cropped	crop	VERB	_	_	0	root	_	_
+3	the	the	DET	_	_	5	det	_	_
+4	best	well	ADV	_	_	5	amod	_	_
+5	answers	answer	NOUN	_	_	2	obj	_	_
+
+# text = yes i have reported several tweets and the profile itself
+1	yes	yes	UH	_	_	4	discourse	_	_
+2	I	I	PRON	_	_	4	nsubj	_	_
+3	have	have	VBP	_	_	4	aux	_	_
+4	reported	report	VERB	_	_	0	root	_	_
+5	several	several	ADJ	_	_	6	amod	_	_
+6	tweets	tweet	NOUN	_	_	4	obj	_	_
+7	and	and	CCONJ	_	_	9	cc	_	_
+8	the	the	DET	_	_	9	det	_	_
+9	profile	profile	NOUN	_	_	6	conj	_	_
+10	itself	itself	PRON	_	_	4	obl:npmod	_	_
