@@ -29,7 +29,7 @@ if __name__ == "__main__":
         out_url = reports_dir + f"{class_name}.txt"
         with open(out_url, 'w') as outf:
             for sent in sentences:
-                outf.write(str(sent))
+                outf.write(str(sent)[1:-1].replace('[', '<').replace(']', '>'))
                 outf.write("\\\\")
                 outf.write("\n")
         log(f"Sentences for {class_name} saved to {out_url}.", "fine_tuning")
