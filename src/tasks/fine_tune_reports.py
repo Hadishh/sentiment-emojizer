@@ -20,6 +20,7 @@ def standardize_sentence(sent):
             sentence.append(current_word)
             current_word = token
     sentence.append(current_word)
+    return sentence
 
 if __name__ == "__main__":
     classes = args.ids
@@ -41,7 +42,7 @@ if __name__ == "__main__":
         with open(out_url, 'w') as outf:
             for sent in sentences:
                 sent = standardize_sentence(sent)
-                outf.write(str(sent)[1:-1].replace('[', '<').replace(']', '>'))
+                outf.write(' '.join(sent).replace('[', '<').replace(']', '>'))
                 outf.write("\\\\")
                 outf.write("\n")
         log(f"Sentences for {class_name} saved to {out_url}.", "fine_tuning")
