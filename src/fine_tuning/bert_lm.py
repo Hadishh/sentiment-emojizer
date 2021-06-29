@@ -34,10 +34,12 @@ class BertLM(pl.LightningModule):
         return AdamW(self.parameters(), lr=1e-5)
 
 class BertPred(nn.Module):
-    def __init__(self):
+    def __init__(self, pretrained_url=None):
         super().__init__()
         self.__model_name = BERT_VERSION
         self.bert = BertForMaskedLM.from_pretrained(self.__model_name, cache_dir=BERT_RAW_MODEL_CACHE_DIR)
+        if pretrained_url:
+            self.bert.load_state_dict(torch.load(pretrained_url))
 
     def forward(self, input_ids, labels=None):
         return self.bert(input_ids=input_ids,labels=labels)
