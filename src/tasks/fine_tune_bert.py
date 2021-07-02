@@ -22,11 +22,11 @@ if __name__ == "__main__":
     batch_size = args.bs
     classes = [int(item) for item in classes.split(',')]
     tokenizer = BertTokenizer.from_pretrained(BERT_VERSION, cache_dir=BERT_TOKENIZER_CACHE_DIR)
-    for id in classes:
-        class_name = classes_info.get_class_name(id)
-        data_url = os.path.join(PREPROCCESSED_DATA_DIR, f"{class_name}{PREPROCESSED_DATA_SUFFIX}.json")
-        save_url = os.path.join(BERT_MODELS_DIR, f"{class_name}{BERT_SUFFIX}.bin")
-        fine_tune_LM(class_name, data_url, tokenizer, epochs=lmepochs, batch_size=batch_size, save_url=save_url, mlm_prob=mlm_p,use_gpu=args.cuda)
+    # for id in classes:
+    #     class_name = classes_info.get_class_name(id)
+    #     data_url = os.path.join(PREPROCCESSED_DATA_DIR, f"{class_name}{PREPROCESSED_DATA_SUFFIX}.json")
+    #     save_url = os.path.join(BERT_MODELS_DIR, f"{class_name}{BERT_SUFFIX}.bin")
+    #     fine_tune_LM(class_name, data_url, tokenizer, epochs=lmepochs, batch_size=batch_size, save_url=save_url, mlm_prob=mlm_p,use_gpu=args.cuda)
     
     data_url = os.path.join(PREPROCCESSED_DATA_DIR, f'{TOTAL_ORDERED_DATA_FILE}.json')
     labels_dir = os.path.join(PREPROCCESSED_DATA_DIR, "labels")

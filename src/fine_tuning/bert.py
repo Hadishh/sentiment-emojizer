@@ -57,8 +57,8 @@ class BertCLF(pl.LightningModule):
         self.epoch_number = 0
 
     def forward(self, input_ids, attention_mask, labels):
-        _, pooler_output = self.bert(input_ids=input_ids, attention_mask=attention_mask)
-        output = self.layer(pooler_output)
+        output = self.bert(input_ids=input_ids, attention_mask=attention_mask)
+        output = self.layer(output.pooler_output)
         output = self.out(output)
         loss = 0
         if labels is not None:
@@ -66,8 +66,8 @@ class BertCLF(pl.LightningModule):
         return loss, output
 
     def training_step(self, batch, batch_idx):
-        input_ids = batch["input_ids"]
-        attention_mask = batch['attention_mask']
+        input_ids = batch["input_ids"].squeeze(1)
+        attention_mask = batch['attention_mask'].squeeze(1)
         labels = batch["labels"]
         outputs = self(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
         loss = outputs[0]
