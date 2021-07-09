@@ -73,6 +73,6 @@ class ClassifierDataset(Dataset):
                     )
         return dict(
             text=text_, 
-            input_ids=torch.tensor(encoding["input_ids"]), 
-            attention_mask=torch.tensor(encoding['attention_mask']), 
+            input_ids=encoding["input_ids"], 
+            attention_mask=encoding['attention_mask'], 
             labels=torch.FloatTensor(self.labels[idx]))
