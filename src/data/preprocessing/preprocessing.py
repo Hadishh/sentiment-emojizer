@@ -111,7 +111,7 @@ def identify_label(tokenized_tweet):
     class_ids = classes_info.get_total_class_ids()
     dict_ = {} 
     for id in class_ids:
-        dict_[str(id)] = 0
+        dict_[id] = 0
     for label in labels:
         dict_[label] = labels[label] / total_emojis
     return dict_
