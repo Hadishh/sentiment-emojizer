@@ -3,7 +3,7 @@ import torch
 import numpy as np
 import time
 import math
-from src.fine_tuning.bert_lm import BertPred
+from src.fine_tuning.bert import BertLMPred
 from transformers import BertTokenizer
 from src.logger.logger import log
 

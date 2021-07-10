@@ -1,1 +1,1 @@
-python -m src.tasks.fine_tune_reports
+python -m src.tasks.fine_tune_bert
