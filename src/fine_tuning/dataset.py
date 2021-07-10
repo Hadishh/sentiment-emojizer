@@ -34,6 +34,7 @@ class MaskedLMDataset(Dataset):
 class ClassifierDataset(Dataset):
     def __init__(self, json_file, labels_dir, tokenizer):
         self.tokenizer = tokenizer
+        self.max_token_len = 128
         self.lines, self.labels = self.load_lines(json_file, labels_dir)
         
     def load_lines(self, file, labels_dir):
@@ -59,9 +60,19 @@ class ClassifierDataset(Dataset):
 
     def __getitem__(self, idx): 
         text_ = self.lines[idx]
-        encoding = self.tokenizer(text_)
+        # encoding = self.tokenizer(text_)
+        encoding = self.tokenizer.encode_plus(
+                        text_,
+                        add_special_tokens=True,
+                        max_length=self.max_token_len,
+                        return_token_type_ids=False,
+                        padding="max_length",
+                        truncation=True,
+                        return_attention_mask=True,
+                        return_tensors='pt',
+                    )
         return dict(
             text=text_, 
-            input_ids=encoding["input_ids"].flatten(), 
-            attention_mask=encoding['attention_mask'].flatten(), 
+            input_ids=encoding["input_ids"], 
+            attention_mask=encoding['attention_mask'], 
             labels=torch.FloatTensor(self.labels[idx]))

@@ -7,7 +7,7 @@ import os
 parser = argparse.ArgumentParser()
 parser.add_argument("--ids", default="1,2,3,4,5,6,7,8")
 parser.add_argument("--lmepochs", default=20)
-parser.add_argument("--clfepochs", default=50)
+parser.add_argument("--clfepochs", default=5)
 parser.add_argument("--mlmprob", default=0.25)
 parser.add_argument("--bs", default=8)
 parser.add_argument("--cuda", default=True)
