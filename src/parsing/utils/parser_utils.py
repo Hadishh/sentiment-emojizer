@@ -12,7 +12,7 @@ import logging
 from collections import Counter
 from . general_utils import get_minibatches
 from src.parsing.parser_transitions import minibatch_parse
-
+import src.constants as constants
 from tqdm import tqdm
 import torch
 import numpy as np
@@ -32,12 +32,6 @@ class Config(object):
     use_pos = True
     use_dep = True
     use_dep = use_dep and (not unlabeled)
-    data_path = 'parsing'
-    train_file = 'en_gum-ud-train.conllu'
-    dev_file = 'en_gum-ud-dev.conllu'
-    test_file = 'en_gum-ud-test.conllu'
-    embedding_file = 'parsing/en-cw.txt'
-    test_file_proj = "sentiment_emojizer.conllu"
 
 
 class Parser(object):
@@ -250,6 +244,8 @@ class Parser(object):
         dependencies = minibatch_parse(sentences, model, eval_batch_size)
 
         UAS = all_tokens = 0.0
+        if dataset[0]['head'] == [-1]:
+            return None, dependencies
         with tqdm(total=len(dataset)) as prog:
             for i, ex in enumerate(dataset):
                 head = [-1] * len(ex['word'])
@@ -347,18 +343,35 @@ def minibatches(data, batch_size):
     one_hot[np.arange(y.size), y] = 1
     return get_minibatches([x, one_hot], batch_size)
 
+def load_embeddings(parser):
+    print("Loading pretrained embeddings...",)
+    start = time.time()
+    word_vectors = {}
+    for line in open(constants.PARSER_EMBEDDING_FILE).readlines():
+        sp = line.strip().split()
+        word_vectors[sp[0]] = [float(x) for x in sp[1:]]
+    embeddings_matrix = np.asarray(np.random.normal(0, 0.9, (parser.n_tokens, 50)), dtype='float32')
+
+    for token in parser.tok2id:
+        i = parser.tok2id[token]
+        if token in word_vectors:
+            embeddings_matrix[i] = word_vectors[token]
+        elif token.lower() in word_vectors:
+            embeddings_matrix[i] = word_vectors[token.lower()]
+    print("took {:.2f} seconds".format(time.time() - start))
+    return embeddings_matrix
 
 def load_and_preprocess_data(reduced=True):
     config = Config()
     print("Loading data...",)
     start = time.time()
-    train_set = read_conll(os.path.join(config.data_path, config.train_file),
+    train_set = read_conll(constants.PARSER_TRAIN_FILE,
                            lowercase=config.lowercase)
-    dev_set = read_conll(os.path.join(config.data_path, config.dev_file),
+    dev_set = read_conll(constants.PARSER_DEV_FILE,
                          lowercase=config.lowercase)
-    test_set = read_conll(os.path.join(config.data_path, config.test_file),
+    test_set = read_conll(constants.PARSER_TEST_FILE,
                           lowercase=config.lowercase)
-    proj_tests = read_conll(os.path.join(config.data_path, config.test_file_proj),
+    proj_tests = read_conll(constants.PARSER_PROJTEST_FILE,
                           lowercase=config.lowercase)
     if reduced:
         train_set = train_set[:1000]
@@ -371,21 +384,7 @@ def load_and_preprocess_data(reduced=True):
     parser = Parser(train_set)
     print("took {:.2f} seconds".format(time.time() - start))
 
-    print("Loading pretrained embeddings...",)
-    start = time.time()
-    word_vectors = {}
-    for line in open(config.embedding_file).readlines():
-        sp = line.strip().split()
-        word_vectors[sp[0]] = [float(x) for x in sp[1:]]
-    embeddings_matrix = np.asarray(np.random.normal(0, 0.9, (parser.n_tokens, 50)), dtype='float32')
-
-    for token in parser.tok2id:
-        i = parser.tok2id[token]
-        if token in word_vectors:
-            embeddings_matrix[i] = word_vectors[token]
-        elif token.lower() in word_vectors:
-            embeddings_matrix[i] = word_vectors[token.lower()]
-    print("took {:.2f} seconds".format(time.time() - start))
+    embeddings_matrix = load_embeddings(parser)
 
     print("Vectorizing data...",)
     start = time.time()
@@ -401,7 +400,6 @@ def load_and_preprocess_data(reduced=True):
     print("took {:.2f} seconds".format(time.time() - start))
 
     return parser, embeddings_matrix, train_examples, dev_set, test_set, proj_tests
-
 
 class AverageMeter(object):
     """Computes and stores the average and current value"""

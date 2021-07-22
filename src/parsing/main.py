@@ -19,7 +19,7 @@ from tqdm import tqdm
 
 from src.parsing.parser_model import ParserModel
 from src.parsing.utils.parser_utils import minibatches, load_and_preprocess_data, AverageMeter, Config
-
+from src.constants import PARSING_MODEL_DIR, PARSING_MODEL
 parser = argparse.ArgumentParser(description='Train neural dependency parser in pytorch')
 parser.add_argument('-d', '--debug', action='store_true', help='whether to enter debug mode')
 parser.add_argument('--notrain', default=False)
@@ -146,9 +146,8 @@ if __name__ == "__main__":
     print(80 * "=")
     print("TRAINING")
     print(80 * "=")
-    output_dir = "models/parsing/".format(datetime.now())
-    output_path = output_dir + "model.weights"
-
+    output_dir = PARSING_MODEL_DIR
+    output_path = PARSING_MODEL
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     if not args.notrain:
