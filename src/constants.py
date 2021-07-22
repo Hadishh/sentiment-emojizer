@@ -22,7 +22,14 @@ TOKENIZATION_TEST_FILE = os.path.join(BASE_TOKENIZATION_URL, "test.txt")
 TOKENIZATION_TRAIN_FILE = os.path.join(BASE_TOKENIZATION_URL, "train.txt")
 TOKENIZATION_REPORTS_URL = os.path.join(BASE_REPORTS_URL, BASE_TOKENIZATION_URL)
 
-
+PARSING_MODEL_DIR = "models/parsing"
+PARSING_MODEL = os.path.join(PARSING_MODEL_DIR , "model.weights")
+PARSER_DATA_DIR = "parsing"
+PARSER_TRAIN_FILE = os.path.join(PARSER_DATA_DIR, "en_gum-ud-train.conllu")
+PARSER_DEV_FILE = os.path.join(PARSER_DATA_DIR, "en_gum-ud-dev.conllu")
+PARSER_TEST_FILE = os.path.join(PARSER_DATA_DIR, "en_gum-ud-test.conllu")
+PARSER_PROJTEST_FILE = os.path.join(PARSER_DATA_DIR, "sentiment_emojizer.conllu")
+PARSER_EMBEDDING_FILE =  os.path.join(PARSER_DATA_DIR, "en-cw.txt")
 LANGUAGE_MODEL_LOG_FILE = "logs/language_model.log"
 
 BERT_VERSION = 'bert-base-uncased'

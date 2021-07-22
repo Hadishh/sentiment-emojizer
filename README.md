@@ -1,2 +1,8 @@
-# sentiment-emojizer
-Final project of [Natural Language Processing](http://www.sauleh.ir/nlp99/) course.
+# Sentiment-Emojizer
+Analysis for classifying tweets into emojis based on the sense of that tweet. 
+
+Tasks:<br>
+* Word2Vec Algorithm
+* Tokenization with SentencePiece
+* Train RNN Language Model 
+* Fine tune BERT
