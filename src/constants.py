@@ -37,6 +37,7 @@ BERT_RAW_MODEL_CACHE_DIR = 'models/bert/raw_model/model'
 BERT_TOKENIZER_CACHE_DIR = 'models/bert/raw_model/tokenizer'
 BERT_MODELS_DIR = 'models/bert'
 BERT_SUFFIX = '_bert_lm'
+BERT_CLASSIFER = 'bert_classifier'
 FINETUNE_LOG_FILES = "logs/fine_tuning.log"
 MASK = '[MASK]'
 SEP = '[SEP]'

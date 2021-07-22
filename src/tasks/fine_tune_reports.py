@@ -2,7 +2,7 @@ import argparse
 from src.data.class_infos import Instance as classes_info
 from src.constants import BERT_MODELS_DIR, BERT_SUFFIX
 from src.fine_tuning.generate_text import generate
-from src.fine_tuning.bert_lm import BertPred
+from src.fine_tuning.bert import BertLMPred
 from src.logger.logger import log
 import os
 import torch
@@ -33,7 +33,7 @@ if __name__ == "__main__":
         class_name = classes_info.get_class_name(id)
         log(f"Generating sentences for {class_name} ...", "fine_tuning")
         model_url = os.path.join(BERT_MODELS_DIR, f"{class_name}{BERT_SUFFIX}.bin")
-        model = BertPred()
+        model = BertLMPred()
         model.load_state_dict(torch.load(model_url))
         model = model.cuda()
         # fine_tune(class_name, data_url, tokenizer, epochs=epochs, batch_size=batch_size, save_url=save_url, mlm_prob=mlm_p,use_gpu=args.cuda)
